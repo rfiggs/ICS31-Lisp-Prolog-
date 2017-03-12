@@ -1,0 +1,46 @@
+Part C
+
+FWGC
+First take the goat to the other side and return without it
+Then take either the wolf or the cabbage to the other side and return with the goat
+Take the other item across and return with nothing
+At this point the farmer and the goat are on the near shore and the wolf and cabbage are on the far shore
+The farmer then simply takes the goat across and the puzzle is solved
+
+This game has 10 legal states
+
+Water Jugs
+Fill up the four gallon jug and pour it into the eleven gallon jug
+Fill up the four gallon jug and pour it into the eleven gallon jug again
+Fill up the four gallon jug and top off the eleven gallon jug
+At this point, the 11 gallon jug is full and the 4 gallon jug as 1 gallon in it
+
+this game has 15 legal states
+
+8-tile
+Start:
+|2|8|3|
+-------
+|1|6|4|
+-------
+|7| |5|
+-------
+Goal:
+-------
+|1|2|3|
+-------
+|8| |4|
+-------
+|7|6|5|
+-------
+Move the 6 down
+Move the 8 down
+Move the 2 to the right
+Move the 1 up
+Move the 8 to the left
+At this point the puzzle is solved
+
+This game has 9! possible states
+But according to this Stackoverflow post
+http://stackoverflow.com/questions/11923566/how-many-possible-states-does-the-8-puzzle-have
+There are only 9!/2 legal states
