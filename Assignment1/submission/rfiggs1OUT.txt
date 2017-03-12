@@ -1,0 +1,50 @@
+Guessing game Transcript
+1 took 6 guesses
+44 took 6 guesses
+88 took 3 guesses
+CL-USER 1 > (guess-my-number)
+50
+
+CL-USER 2 > (smaller)
+25
+
+CL-USER 3 > (smaller)
+12
+
+CL-USER 4 > (smaller)
+6
+
+CL-USER 5 > (smaller)
+3
+
+CL-USER 6 > (smaller)
+1
+
+CL-USER 7 > (start-over)
+50
+
+CL-USER 8 > (smaller)
+25
+
+CL-USER 9 > (bigger)
+37
+
+CL-USER 10 > (bigger)
+43
+
+CL-USER 11 > (bigger)
+46
+
+CL-USER 12 > (smaller)
+44
+
+CL-USER 13 > (start-over)
+Warning: (DEFVAR *SMALL*) defined more than once in C:\Users\Bobby\Desktop\School stuff\2017Spring\ICS361\guess.lisp.
+Warning: (DEFVAR *BIG*) defined more than once in C:\Users\Bobby\Desktop\School stuff\2017Spring\ICS361\guess.lisp.
+50
+
+CL-USER 14 > (bigger)
+75
+
+CL-USER 15 > (bigger)
+88
