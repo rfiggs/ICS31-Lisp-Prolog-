@@ -30,6 +30,7 @@
              (remove-if
                  (lambda (x)
                      (or
+                        (equal x parent-state)
                         (member x (mapcar #'car *open*) :test #'equal)
                         (member x (mapcar #'car *closed*) :test #'equal)
                     )
@@ -200,7 +201,7 @@
         (moves (third game))
         (score (eval (list heuristic (list 'quote (first game)) (list 'quote (second game)))))
     )
-        (setf *open* (list (list start nil score 1)))
+        (setf *open* (list (list start nil score 0)))
         (setf *closed* nil)
         (print-solution (solution-path (a* heuristic goal moves max-depth)))
     )
@@ -385,21 +386,21 @@
 (defun 8-tile-children (state)
     (let ((x (mod (position 0 state) 3)) (y (/ (- (position 0 state) (mod (position 0 state) 3)) 3)))
         (remove nil (list
-            ;swap with tile above
+            ;swap with tile right
             (cond ((< x 2)
                 (swap (position 0 state) (+ (* 3 y) (1+ x))  state)
             ))
-            ;swap with tile below
+            ;swap with tile left
             (cond ((> x 0)
                 (swap (position 0 state) (+ (* 3 y) (1- x))  state)
             ))
-            ;swap with tile right
+            ;swap with tile above
             (cond ((< y 2)
                 (swap (position 0 state) (+ (* 3 (1+ y)) x)  state)
             ))
-            ;swap with tile left
+            ;swap with tile below
             (cond ((> y 0)
-                (swap (position 0 state) (+ (* 3 (1- y)) )  state)
+                (swap (position 0 state) (+ (* 3 (1- y)) x)  state)
             ))
         ))
     )
@@ -442,8 +443,99 @@
     (list start goal '8-tile-children)
 )
 
-(defparameter start '(8 6 0 5 2 7 4 3 1))
-(defparameter goal  '(5 7 0 3 8 2 6 4 1))
+;Function: manhattan-distance
+;Description: Calculates the manhattan distance between two positions in the 8-tile puzzle
+;position is just the position of the element in the list e.g.
+;(0 1 2 3 4 5 6 7 8)
+;Parameters:
+;p1, the first position
+;p2, the second position
+;Returns: the manhattan distance between the two positions
+(defun manhattan-distance (p1 p2)
+    (let
+        (
+            (x1 (mod p1 3))
+            (y1 (/ (- p1 (mod p1 3)) 3))
+            (x2 (mod p2 3))
+            (y2 (/ (- p2 (mod p2 3)) 3))
+        )
+        (+
+            (abs (- x1 x2))
+            (abs (- y1 y2))
+        )
+    )
+)
 
-(defun test () (heuristic-search 'default-heuristic (water-jugs)))
-(defun test8 () (heuristic-search 'default-heuristic (8-tile start goal) 14))
+;Function: manhattan-distance-heuristic
+;Description: This is a heuristic function for the 8-tile game
+;it returns the sum of the manhattan distance of each tile in the puzzle
+;from its position in the current state, to the position in the goal state
+;this includes 0 which is the blank space
+;Parameters:
+;state, a state of the 8-tile puzzle
+;goal-state, the goal state of the current 8-tile puzzle
+;Returns: a number which is the sum of the manhattan distances for the given state to the goal state
+(defun manhattan-distance-heuristic (state goal-state)
+    (eval
+        (cons
+            '+
+            (mapcar
+                (lambda (n)
+                    (manhattan-distance (position n state) (position n goal-state))
+                )
+                state
+             )
+        )
+    )
+)
+
+;Function: custom-8-tile-heuristic
+;Description: This is a heuristic function for the 8-tile game
+;this heuristic is the sum of the following equation for each tile
+;the tile's manhattan distance from the state to the goal state
+;multiplied by
+;the tile's manhattan distance from the tile to the blank tile
+;note that because the blank tile's distance to the blank tile is 0
+;the blank tile is effectively left out of this sum
+;Parameters:
+;state, a state of the 8-tile puzzle
+;goal-state, the goal state of the current 8-tile puzzle
+;Returns: a number which is the sum of the manhattan distances for the given state to the goal state
+(defun custom-8-tile-heuristic (state goal-state)
+    (eval
+        (cons
+            '+
+            (mapcar
+                (lambda (n)
+                    (*
+                        (manhattan-distance (position n state) (position n goal-state))
+                        (manhattan-distance (position n state) (position 0 state))
+                    )
+                )
+                state
+             )
+        )
+    )
+)
+
+
+
+;easy
+;(defparameter start '(1 2 5 3 4 0 6 7 8))
+;(defparameter goal  '(0 1 2 3 4 5 6 7 8))
+
+;medium 8 moves
+;(defparameter start '(5 2 0 4 6 7 8 1 3))
+;(defparameter goal  '(5 6 2 8 0 4 1 3 7))
+
+;hard more than 10
+;(defparameter start '(3 5 2 8 6 4 0 1 7))
+;(defparameter goal  '(3 4 5 8 0 7 1 2 6))
+
+;impossible
+(defparameter start '(7 5 0 4 1 8 6 3 2))
+(defparameter goal  '(7 8 0 4 5 6 1 2 3))
+
+(defun test () (custom-8-tile-heuristic start goal))
+(defun test8 () (heuristic-search 'custom-8-tile-heuristic (8-tile start goal) 20))
+(defun test8- () (heuristic-search 'manhattan-distance-heuristic (8-tile start goal) 20))
