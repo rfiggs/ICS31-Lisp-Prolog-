@@ -1,3 +1,30 @@
+;This file implements the heuristic-search strategy
+;It also implements three logic puzzles which the algorithm can search over
+;The farmer, the wolf, the goat, and the cabbage
+;The water jugs puzzle
+;and the 8 tile puzzle
+;to run a heuristic search you just call heuristic-search in the following format
+;(heuristic-search 'heuristic (puzzle) &optional depth-limit)
+;for example if you want to run the default heuristic with the water jugs puzzle
+;(heuristic-search 'default-heuristic (water-jugs))
+;note that the 8 tile game needs a start state and an end state to work
+;for example
+;(heuristic-search 'default-heuristic (8-tile '(0 1 2 3 4 5 6 7 8) '(8 7 6 5 4 3 2 1 0)))
+;see the 8-tile description below for more
+;You can also add an optional depth limitation as an integer after the puzzle
+;the algorithm will consider every node at that depth but not higher
+;for example if you want a depth limit of 7
+;(heuristic-search 'default-heuristic (8-tile '(0 1 2 3 4 5 6 7 8) '(8 7 6 5 4 3 2 1 0)) 7)
+;there are pre defined start and goal states for demonstration purposes
+;all of them have the same start state called
+;start
+;there are three goal states
+;easy-goal
+;difficult-goal
+;impossible-goal
+;for example for the easy goal you can call
+;(heuristic-search 'default-heuristic (8-tile start easy-goal))
+
 ;Nodes are in the following format
 ;(state parent-state score depth)
 ;score is the score calculated by a heuristics function
@@ -22,11 +49,10 @@
 (defun make-children (parent-node goal-state moves heuristic)
     (let (
         (parent-state (first parent-node))
-        (parent-score (third parent-node))
         (parent-depth (fourth parent-node))
         )
         (mapcar
-            (lambda (x) (list x parent-state (+ parent-score (eval (list heuristic (list 'quote x) (list 'quote goal-state)))) (1+ parent-depth)))
+            (lambda (x) (list x parent-state (+ (1+ parent-depth) (eval (list heuristic (list 'quote x) (list 'quote goal-state)))) (1+ parent-depth)))
              (remove-if
                  (lambda (x)
                      (or
@@ -154,6 +180,10 @@
 ;goal, the target state that we are trying to achieve
 ;iteration, the current number of nodes looked at
 ;moves, a function that takes a state as a parameter and  returns the child states
+;Optional Parameters:
+;max-depth, a number that represents the maximum depth of node to search
+;Returns:
+;the goal state found by the algorithm or nil if nothing is found
 (defun a* (heuristic goal moves &optional max-depth)
     (let
         (
@@ -170,7 +200,7 @@
                 (setf *open*
                     (lmerge
                         (cdr *open*)
-                        (if (or (null max-depth) (< (fourth node) max-depth))
+                        (if (or (null max-depth) (<= (fourth node) max-depth))
                             (merge-sort (make-children node goal moves heuristic))
                         )
                     )
@@ -183,7 +213,7 @@
 
 ;Function: heuristic-search
 ;Description: sets up the open and closed lists then calls
-;the recursive function breadth-first-search to find a path to the goal state
+;the recursive function a* to find a path to the goal state
 ;Parameters:
 ;heuristic, heuristic is the name of a function that takes a state and a goal state
 ;and returns the estimated number of moves to the goal state
@@ -209,7 +239,7 @@
 
 ;Function: default-heuristic
 ;Description: takes a state and a goal-state and returns the number of items
-;that are not the same in both states
+;that are not the same in both states aka the number of items out of place
 ;Parameters:
 ;state, the current game state
 ;goal-state, the goal state of the current game
@@ -470,7 +500,7 @@
 ;Description: This is a heuristic function for the 8-tile game
 ;it returns the sum of the manhattan distance of each tile in the puzzle
 ;from its position in the current state, to the position in the goal state
-;this includes 0 which is the blank space
+;this excludes 0 which is the blank space
 ;Parameters:
 ;state, a state of the 8-tile puzzle
 ;goal-state, the goal state of the current 8-tile puzzle
@@ -481,7 +511,14 @@
             '+
             (mapcar
                 (lambda (n)
-                    (manhattan-distance (position n state) (position n goal-state))
+                    (cond
+                        ((equal n 0)
+                            0
+                        )
+                        (t
+                            (manhattan-distance (position n state) (position n goal-state))
+                        )
+                    )
                 )
                 state
              )
@@ -518,24 +555,14 @@
     )
 )
 
-
+;start
+(defparameter start '(2 5 0 6 3 4 7 8 1))
 
 ;easy
-;(defparameter start '(1 2 5 3 4 0 6 7 8))
-;(defparameter goal  '(0 1 2 3 4 5 6 7 8))
+(defparameter easy-goal  '(8 2 4 0 5 3 6 7 1))
 
-;medium 8 moves
-;(defparameter start '(5 2 0 4 6 7 8 1 3))
-;(defparameter goal  '(5 6 2 8 0 4 1 3 7))
-
-;hard more than 10
-;(defparameter start '(3 5 2 8 6 4 0 1 7))
-;(defparameter goal  '(3 4 5 8 0 7 1 2 6))
+;difficult
+(defparameter difficult-goal  '(7 8 0 4 5 6 1 2 3))
 
 ;impossible
-(defparameter start '(7 5 0 4 1 8 6 3 2))
-(defparameter goal  '(7 8 0 4 5 6 1 2 3))
-
-(defun test () (custom-8-tile-heuristic start goal))
-(defun test8 () (heuristic-search 'custom-8-tile-heuristic (8-tile start goal) 20))
-(defun test8- () (heuristic-search 'manhattan-distance-heuristic (8-tile start goal) 20))
+(defparameter impossible-goal  '(5 2 0 6 3 4 7 8 1))
