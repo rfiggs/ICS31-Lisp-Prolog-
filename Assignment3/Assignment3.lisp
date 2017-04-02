@@ -200,7 +200,7 @@
                 (setf *open*
                     (lmerge
                         (cdr *open*)
-                        (if (or (null max-depth) (<= (fourth node) max-depth))
+                        (if (or (null max-depth) (< (fourth node) max-depth))
                             (merge-sort (make-children node goal moves heuristic))
                         )
                     )

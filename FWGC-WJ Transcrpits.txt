@@ -1,0 +1,33 @@
+CL-USER 1 > (heuristic-search 'default-heuristic (fwgc))
+Evaluating Node: ((T T T T) NIL 1 0)
+Evaluating Node: ((NIL T NIL T) (T T T T) 4 1)
+Evaluating Node: ((T T NIL T) (NIL T NIL T) 4 2)
+Evaluating Node: ((NIL T NIL NIL) (T T NIL T) 5 3)
+Evaluating Node: ((T T T NIL) (NIL T NIL NIL) 4 4)
+Length of *open*: 2
+Length of *closed*: 4
+Solution Path Length: 5
+Solution Path: ((T T T T) (NIL T NIL T) (T T NIL T) (NIL T NIL NIL) (T T T NIL))
+((T T T T) (NIL T NIL T) (T T NIL T) (NIL T NIL NIL) (T T T NIL))
+
+CL-USER 2 > (heuristic-search 'default-heuristic (water-jugs))
+Evaluating Node: ((0 0) NIL 1 0)
+Evaluating Node: ((4 0) (0 0) 2 1)
+Evaluating Node: ((0 11) (0 0) 3 1)
+Evaluating Node: ((0 4) (4 0) 4 2)
+Evaluating Node: ((4 7) (0 11) 4 2)
+Evaluating Node: ((4 11) (4 0) 4 2)
+Evaluating Node: ((4 4) (0 4) 5 3)
+Evaluating Node: ((0 7) (4 7) 5 3)
+Evaluating Node: ((0 8) (4 4) 6 4)
+Evaluating Node: ((4 3) (0 7) 6 4)
+Evaluating Node: ((4 8) (0 8) 7 5)
+Evaluating Node: ((0 3) (4 3) 7 5)
+Evaluating Node: ((1 11) (4 8) 7 6)
+Evaluating Node: ((3 0) (0 3) 7 6)
+Evaluating Node: ((1 0) (1 11) 7 7)
+Length of *open*: 2
+Length of *closed*: 14
+Solution Path Length: 8
+Solution Path: ((0 0) (4 0) (0 4) (4 4) (0 8) (4 8) (1 11) (1 0))
+((0 0) (4 0) (0 4) (4 4) (0 8) (4 8) (1 11) (1 0))

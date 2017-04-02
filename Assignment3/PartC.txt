@@ -1,0 +1,19 @@
+Manhattan Distance
+The default heuristic I used is not admissible for the 8 tile game.
+However if we do not include 0 in the count then it becomes admissible.
+Using this admissible heuristic, then the manhattan distance is more informed than the default heuristic.
+The default heuristic gives 0 if a tile is in place and 1 if the is out of place.
+The manhattan distance also gives 0 if a tile is in place.
+But if the tile is out of place it will give a value of at least 1 and a max of 4.
+Since this is always greater than or equal to the default heuristic, the manhattan distance is more informed.
+
+Custom Heuristic
+This heuristic multiplies the manhattan distance by that tiles distance from the blank tile.
+This is a number that will also be between 1 and 4.
+So because the numbers of the manhattan distance are being multiplied by a number between 1 and 4.
+They will always be greater than or equal to the manhattan distance so it is more informed.
+However unlike the other two heuristics it is not admissible.
+For example if you take any start state and make any two moves (as long as you don't move the same tile back),
+This heuristic will return 3 which is more than the shortest moves which is 2.
+Interestingly in the transcripts provided, this heuristic did not find the shortest path, but it did find the path quicker.
+What I mean by that is it has fewer nodes in the closed list which means it took fewer iterations to find a goal.
