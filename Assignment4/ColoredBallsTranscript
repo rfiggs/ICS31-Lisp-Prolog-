@@ -1,0 +1,53 @@
+?- situation1(L).
+L = [red, black, red, blue, black, blue] ;
+L = [red, black, blue, red, black, blue] ;
+L = [red, black, blue, red, blue, black] ;
+L = [red, black, blue, black, red, blue] ;
+L = [red, black, blue, black, blue, red] ;
+L = [red, blue, red, black, blue, black] ;
+L = [red, blue, black, red, black, blue] ;
+L = [red, blue, black, red, blue, black] ;
+L = [red, blue, black, blue, red, black] ;
+L = [red, blue, black, blue, black, red] ;
+L = [black, red, black, blue, red, blue] ;
+L = [black, red, blue, red, black, blue] ;
+L = [black, red, blue, red, blue, black] ;
+L = [black, red, blue, black, red, blue] ;
+L = [black, red, blue, black, blue, red] ;
+L = [black, blue, red, black, red, blue] ;
+L = [black, blue, red, black, blue, red] ;
+L = [black, blue, red, blue, red, black] ;
+L = [black, blue, red, blue, black, red] ;
+L = [black, blue, black, red, blue, red] ;
+L = [blue, red, black, red, black, blue] ;
+L = [blue, red, black, red, blue, black] ;
+L = [blue, red, black, blue, red, black] ;
+L = [blue, red, black, blue, black, red] ;
+L = [blue, red, blue, black, red, black] ;
+L = [blue, black, red, black, red, blue] ;
+L = [blue, black, red, black, blue, red] ;
+L = [blue, black, red, blue, red, black] ;
+L = [blue, black, red, blue, black, red] ;
+L = [blue, black, blue, red, black, red] ;
+false.
+
+?- situation2(L).
+L = [red, red, black, red, red, blue] ;
+L = [red, red, black, red, blue, red] ;
+L = [red, red, black, blue, red, red] ;
+L = [red, red, blue, red, red, black] ;
+L = [red, red, blue, red, black, red] ;
+L = [red, red, blue, black, red, red] ;
+L = [red, black, red, red, blue, red] ;
+L = [red, black, red, blue, red, red] ;
+L = [red, blue, red, red, black, red] ;
+L = [red, blue, red, black, red, red] ;
+L = [black, red, red, blue, red, red] ;
+L = [blue, red, red, black, red, red] ;
+false.
+
+?- situation3(L).
+L = [purple, blue, yellow, purple, blue, black, black, purple] ;
+L = [purple, blue, black, purple, blue, yellow, black, purple] ;
+L = [purple, blue, black, purple, blue, black, yellow, purple] ;
+false.

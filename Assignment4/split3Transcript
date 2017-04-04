@@ -1,0 +1,51 @@
+?- split3(0,[]).
+false.
+
+?- split3(0,[1,2]).
+false.
+
+?- split3(3,[1,2]).
+false.
+
+?- split3(3,[1,2,3]).
+true .
+
+?- split3(1,[1,2,3]).
+false.
+
+?- split3(5,[5,1,1,1,1,5]).
+true .
+
+?- split3(5,[4,1,1,1,1,1,1,5]).
+true .
+
+?- split3(3,[1,1,1,1,1,1,1,1,1]).
+true .
+
+?- split3(1,[1,1,1,1]).
+false.
+
+?- split3(2,[1,1,1,1]).
+true ;
+true ;
+true ;
+false.
+
+?- split3(L,[1,1,1,1]).
+ERROR: Arguments are not sufficiently instantiated
+ERROR: In:
+ERROR:   [10] _1014>=1
+ERROR:    [9] split3(_1040,[1],[1],[1,1]) at c:/users/bobby/desktop/school stuff/2017spring/ics361/assignment4/assignment4.pl:93
+ERROR:    [7] <user>
+ERROR:
+ERROR: Note: some frames are missing due to last-call optimization.
+ERROR: Re-run your program in debug mode (:- debug.) to get more detail.
+   Exception: (9) split3(_328, [1], [1], [1, 1]) ? creep
+?-
+|    split3(1,L).
+false.
+
+?- split3(N,L).
+false.
+
+?-
