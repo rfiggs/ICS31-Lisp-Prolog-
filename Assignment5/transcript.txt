@@ -1,0 +1,59 @@
+?- top([is, it, true, that, frank, oz, plays, yoda]).
+Yes, that's true.
+true .
+
+?- top([is, it, true, that, idris, elba, is, an, actor]).
+Yes, that's true.
+true .
+
+?- top([did, chris, pine, play, kirk, in, star, trek, i]).
+Yes, that's true.
+true .
+
+?- top([who, is, the, actor, for, sebulba]).
+The person you're looking for is lewis macleod
+true .
+
+?- top([who, is, the, director, of, star, trek, iii]).
+The person you're looking for is justin lin
+true .
+
+?- top([who, is, the, character, of, benedict,cumberbatch]).
+The person you're looking for is khan
+true .
+
+?- top([what, is, the, title, of, star, trek, ii]).
+star trek into darkness
+true .
+
+?- top([george,lucas,directed,star,wars,i,and,natalie,portman,plays,padme,right]).
+Yes, that's true.
+true .
+
+?- top([george,lucas,directed,star,wars,i,chris,pine,plays,kirk,and,sofia,boutella,plays,jaylah,right]).
+Yes, that's true.
+true .
+
+?- top([george,lucas,is,a,director,lewis,macleod,is,an,actor,and,natalie,portman,plays,padme,right]).
+Yes, that's true.
+true .
+
+?- top([is,it,true,that,justin,lin,is,a,director,lewis,macleod,plays,sebulba,and,natalie,portman,plays,padme]).
+Yes, that's true.
+true .
+
+?- top([did,george,lucas,plays,spock]).
+I don't get it
+true.
+
+?- top([is,it,true,that,spock,is,a,actor]).
+I don't get it
+true.
+
+?- top([liam,neeson,play,kahn,right]).
+I don't get it
+true.
+
+?- top([justin,lin,is,an,director]).
+I don't get it
+true.
