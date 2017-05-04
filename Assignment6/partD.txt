@@ -1,0 +1,5 @@
+Part A shows us that prolog is not good at a breadth first search. prolog is declarative so it is better for representing relationships.
+In a breadth first search, we are searching through nodes for a solution but we don't necessarily have concrete relationships between the start and goal.
+This is what makes this project difficult to do in prolog
+
+Part C shows us that lisp is bad at exploring permutations of a list. in prolog this is very easy, but in lisp it is pretty difficult. i ended up modifying my depth first search from a previous project and using the list as a state, and used a list children function try out all the different combinations.
